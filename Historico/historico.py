@@ -5,6 +5,8 @@ import json
 __all__ = [
     "registrar_modificacao",
     "salvar_dados",
+    "consultar_historico_linha", 
+    "consultar_historico_ponto"
 ]
 
 listaTipos = ["criação", "alteração", "deleção"]
@@ -37,15 +39,16 @@ def registrar_modificacao(tipo_modificacao, objeto_alterado, id_objeto):
     
     if objeto_alterado == "ponto":
         msg, codigo = consultar_ponto(id_objeto)
-
+        print(msg)
         if codigo == 1:
             historico_pontos.append({'tipo' : tipo_modificacao, "objeto" : objeto_alterado, 'id' : id_objeto, "data": datetime.now().strftime("%Y-%m-%d %H:%M")})
             return "Modificação registrada com sucesso!", 1
         else:
             return msg, codigo
+        
     elif objeto_alterado == "linha":
         msg, codigo = consultar_linha(id_objeto)
-
+        print(msg)
         if codigo == 1:
             historico_linhas.append({'tipo' : tipo_modificacao, "objeto" : objeto_alterado, 'id' : id_objeto, "data": datetime.now().strftime("%Y-%m-%d %H:%M")})
             return "Modificação registrada com sucesso!", 1
